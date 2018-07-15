@@ -73,14 +73,18 @@ class Bot():
         print(self.orePos)
 
     def clickOre(self):
+        self.saveMousePos()
         win32api.SetCursorPos(self.orePos)
         time.sleep(0.1)
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
         time.sleep(0.005)
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+        self.returnMousePos()
         time.sleep(2)
 
     def clickAntiBot(self, number):
+        self.saveMousePos()
+
         w = int((self.size[2] - abs(self.size[0])) / 2)
         h = int((self.size[3] + abs(self.size[1])) / 2)
 
@@ -92,12 +96,19 @@ class Bot():
             win32api.SetCursorPos((w, h + 60))
         elif number == 4:
             win32api.SetCursorPos((w, h))
-            
+
         time.sleep(0.1)
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
         time.sleep(0.005)
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+        self.returnMousePos()
         self.clickOre()
+
+    def saveMousePos(self):
+        self.oldPos = win32gui.GetCursorPos()
+
+    def returnMousePos(self):
+        win32api.SetCursorPos(self.oldPos)
 
 
 if __name__ == "__main__":
