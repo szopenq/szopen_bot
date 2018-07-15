@@ -1,12 +1,10 @@
 from PIL import Image
-import win32com.client
 import win32gui
 import win32api, win32con
 import time, random, ctypes, sys
 from desktopmagic.screengrab_win32 import saveRectToBmp
 
 
-# shell = win32com.client.Dispatch("WScript.Shell")
 
 
 def is_admin():
