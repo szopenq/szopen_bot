@@ -48,26 +48,26 @@ class Bot():
 
         comp = Image.open("pic.bmp")
         if comp.tobytes() == self.img1.tobytes():
-            print('clicking 1')
+            print("[ANTI-BOT] - 1")
             self.clickAntiBot(1)
         elif comp.tobytes() == self.img2.tobytes():
-            print('clicking 2')
+            print("[ANTI-BOT] - 2")
             self.clickAntiBot(2)
         elif comp.tobytes() == self.img3.tobytes():
-            print('clicking 3')
+            print("[ANTI-BOT] - 3")
             self.clickAntiBot(3)
         elif comp.tobytes() == self.img4.tobytes():
-            print('clicking 4')
+            print("[ANTI-BOT] - 4")
             self.clickAntiBot(4)
         else:
-            print("brak anty-bot")
+            print("[ANTI-BOT] - NONE")
 
     def getWindowSize(self):
         samia = win32gui.FindWindow(None, "Samia")
         self.size = win32gui.GetWindowRect(samia)
 
     def getOrePosition(self):
-        print("Najedz na zyle i kliknij J na klawiaturze")
+        print("[INFO] - Najedz na zyle i kliknij J na klawiaturze")
         while not self.oreSet:
             if win32api.GetAsyncKeyState(ord("J")):
                 self.orePos = win32gui.GetCursorPos()
@@ -85,7 +85,6 @@ class Bot():
     def clickAntiBot(self, number):
         w = int((self.size[2] - abs(self.size[0]))/2)
         h = int((self.size[3] + abs(self.size[1]))/2)
-        print(w, h)
         if number == 1:
             win32api.SetCursorPos((w, h + 30))
             time.sleep(0.1)
