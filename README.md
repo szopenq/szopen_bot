@@ -1,5 +1,6 @@
 # szopen_bot
 
+# THIS ONLY WORKS ON 1024x768 RESOLUTION!!!
 Installation:
 
 ```
