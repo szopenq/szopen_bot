@@ -1,4 +1,4 @@
-# from PIL import ImageGrab
+from PIL import Image
 import win32com.client
 import win32gui
 import win32api, win32con
@@ -21,6 +21,11 @@ class Bot():
         self.oreSet = False
         self.running = True
 
+        self.img1 = Image.open("1.bmp")
+        self.img2 = Image.open("2.bmp")
+        self.img3 = Image.open("3.bmp")
+        self.img4 = Image.open("4.bmp")
+
     def run(self):
         self.getOrePosition()
         self.getWindowSize()
@@ -29,12 +34,35 @@ class Bot():
     def mine(self):
         while self.running:
             self.clickOre()
-            time.sleep(1.5)
             self.screenshot()
+            time.sleep(0.2)
+            self.checkBot()
             time.sleep(15 + random.uniform(-3, 3))
 
     def screenshot(self):
-        saveRectToBmp('img.bmp', rect=self.size)
+        x0 = self.size[0] + 353
+        y0 = self.size[1] + 212
+        x1 = self.size[0] + 657
+        y1 = self.size[1] + 312
+        saveRectToBmp('pic.bmp', rect=(x0, y0, x1, y1))
+
+    def checkBot(self):
+
+        comp = Image.open("pic.bmp")
+        if comp.tobytes() == self.img1.tobytes():
+            print('clicking 1')
+            self.clickAntiBot(1)
+        elif comp.tobytes() == self.img2.tobytes():
+            print('clicking 2')
+            self.clickAntiBot(2)
+        elif comp.tobytes() == self.img3.tobytes():
+            print('clicking 3')
+            self.clickAntiBot(3)
+        elif comp.tobytes() == self.img4.tobytes():
+            print('clicking 4')
+            self.clickAntiBot(4)
+        else:
+            print("brak anty-bot")
 
     def getWindowSize(self):
         samia = win32gui.FindWindow(None, "Samia")
@@ -49,12 +77,42 @@ class Bot():
         print(self.orePos)
 
     def clickOre(self):
-        print("KOPIE RUDE")
         win32api.SetCursorPos(self.orePos)
         time.sleep(0.1)
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
         time.sleep(0.005)
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+        time.sleep(2)
+
+    def clickAntiBot(self, number):
+        w = int((self.size[2] - abs(self.size[0]))/2)
+        h = int((self.size[3] + abs(self.size[1]))/2)
+        print(w, h)
+        if number == 1:
+            win32api.SetCursorPos((w, h + 30))
+            time.sleep(0.1)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+            time.sleep(0.005)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+        elif number == 2:
+            win32api.SetCursorPos((w, h - 40))
+            time.sleep(0.1)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+            time.sleep(0.005)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+        elif number == 3:
+            win32api.SetCursorPos((w, h + 60))
+            time.sleep(0.1)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+            time.sleep(0.005)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+        elif number == 4:
+            win32api.SetCursorPos((w, h))
+            time.sleep(0.1)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+            time.sleep(0.005)
+            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+        self.clickOre()
 
 
 if __name__ == "__main__":
