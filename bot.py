@@ -5,8 +5,6 @@ import time, random, ctypes, sys
 from desktopmagic.screengrab_win32 import saveRectToBmp
 
 
-
-
 def is_admin():
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
@@ -83,32 +81,22 @@ class Bot():
         time.sleep(2)
 
     def clickAntiBot(self, number):
-        w = int((self.size[2] - abs(self.size[0]))/2)
-        h = int((self.size[3] + abs(self.size[1]))/2)
+        w = int((self.size[2] - abs(self.size[0])) / 2)
+        h = int((self.size[3] + abs(self.size[1])) / 2)
+
         if number == 1:
             win32api.SetCursorPos((w, h + 30))
-            time.sleep(0.1)
-            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
-            time.sleep(0.005)
-            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
         elif number == 2:
             win32api.SetCursorPos((w, h - 40))
-            time.sleep(0.1)
-            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
-            time.sleep(0.005)
-            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
         elif number == 3:
             win32api.SetCursorPos((w, h + 60))
-            time.sleep(0.1)
-            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
-            time.sleep(0.005)
-            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
         elif number == 4:
             win32api.SetCursorPos((w, h))
-            time.sleep(0.1)
-            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
-            time.sleep(0.005)
-            win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
+            
+        time.sleep(0.1)
+        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0)
+        time.sleep(0.005)
+        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
         self.clickOre()
 
 
