@@ -1,6 +1,5 @@
 from PIL import Image
-import win32gui
-import win32api, win32con
+import win32api, win32con, win32com.client, win32gui
 import time, random, ctypes, sys
 from desktopmagic.screengrab_win32 import saveRectToBmp
 
@@ -16,6 +15,7 @@ class Bot():
     def __init__(self):
         self.oreSet = False
         self.running = True
+        self.shell = win32com.client.Dispatch("WScript.Shell")
 
         self.img1 = Image.open("1.bmp")
         self.img2 = Image.open("2.bmp")
@@ -106,9 +106,12 @@ class Bot():
 
     def saveMousePos(self):
         self.oldPos = win32gui.GetCursorPos()
+        self.activeWindow = win32gui.GetForegroundWindow()
 
     def returnMousePos(self):
         win32api.SetCursorPos(self.oldPos)
+        self.shell.SendKeys('')  # Without this it will return an error
+        win32gui.SetForegroundWindow(self.activeWindow)
 
 
 if __name__ == "__main__":
