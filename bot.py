@@ -30,8 +30,6 @@ class Bot():
     def mine(self):
         while self.running:
             self.clickOre()
-            self.screenshot()
-            time.sleep(0.2)
             self.checkBot()
             time.sleep(15 + random.uniform(-3, 3))
 
@@ -43,7 +41,8 @@ class Bot():
         saveRectToBmp('pic.bmp', rect=(x0, y0, x1, y1))
 
     def checkBot(self):
-
+        self.screenshot()
+        time.sleep(0.2)
         comp = Image.open("pic.bmp")
         if comp.tobytes() == self.img1.tobytes():
             print("[ANTI-BOT] - 1")
@@ -70,7 +69,7 @@ class Bot():
             if win32api.GetAsyncKeyState(ord("J")):
                 self.orePos = win32gui.GetCursorPos()
                 self.oreSet = True
-        print(self.orePos)
+        print("[INFO] - ORE POSTION: " + str(self.orePos))
 
     def clickOre(self):
         self.saveMousePos()
@@ -103,6 +102,7 @@ class Bot():
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0, 0, 0)
         self.returnMousePos()
         self.clickOre()
+        self.checkBot()
 
     def saveMousePos(self):
         self.oldPos = win32gui.GetCursorPos()
@@ -110,8 +110,11 @@ class Bot():
 
     def returnMousePos(self):
         win32api.SetCursorPos(self.oldPos)
-        self.shell.SendKeys('')  # Without this it will return an error
-        win32gui.SetForegroundWindow(self.activeWindow)
+        try:
+            self.shell.SendKeys('')  # Without this it will return an error
+            win32gui.SetForegroundWindow(self.activeWindow)
+        except:
+            print("[EXCEPTION] - Error when chaning focus window")
 
 
 if __name__ == "__main__":
