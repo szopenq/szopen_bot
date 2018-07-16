@@ -1,4 +1,3 @@
-Pillow==5.0.0
-win32gui==221.6
-pywin32==223
-Desktopmagic==14.3.11
+Pillow
+pywin32
+desktopmagic
