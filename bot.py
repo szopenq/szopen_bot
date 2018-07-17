@@ -60,7 +60,9 @@ class Bot():
             print("[ANTI-BOT] - NONE")
 
     def getWindowSize(self):
-        samia = win32gui.FindWindow(None, "Samia")
+        samia = win32gui.GetForegroundWindow()
+        if win32gui.GetWindowText(samia).lower() != "samia":
+            raise Exception("Wrong window! - You need to be in Samia in order to activate the bot!")
         self.size = win32gui.GetWindowRect(samia)
 
     def getOrePosition(self):
