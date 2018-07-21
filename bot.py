@@ -12,10 +12,12 @@ def is_admin():
 
 
 class Bot():
-    def __init__(self):
+    def __init__(self, botNumber=''):
         self.oreSet = False
         self.running = True
         self.shell = win32com.client.Dispatch("WScript.Shell")
+        self.botNumber = botNumber
+        self.saveFile = "pic" + str(botNumber) + ".bmp"
 
         self.img1 = Image.open("1.bmp")
         self.img2 = Image.open("2.bmp")
@@ -38,12 +40,12 @@ class Bot():
         y0 = self.size[1] + 212
         x1 = self.size[0] + 657
         y1 = self.size[1] + 312
-        saveRectToBmp('pic.bmp', rect=(x0, y0, x1, y1))
+        saveRectToBmp(self.saveFile, rect=(x0, y0, x1, y1))
 
     def checkBot(self):
         self.screenshot()
         time.sleep(0.2)
-        comp = Image.open("pic.bmp")
+        comp = Image.open(self.saveFile)
         if comp.tobytes() == self.img1.tobytes():
             print("[ANTI-BOT] - 1")
             self.clickAntiBot(1)
@@ -121,8 +123,12 @@ class Bot():
 
 if __name__ == "__main__":
     if is_admin():
-        bot = Bot()
+        try:
+            bot = Bot(sys.argv[1])
+        except IndexError:
+            bot = Bot()
         bot.run()
     else:
-        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__, None, 1)
+        arguments = " ".join(sys.argv[1:])
+        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__ + " " + arguments, None, 1)
         sys.exit()
