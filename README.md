@@ -14,6 +14,8 @@ Running single bot:
 python bot.py
 ```
 
+Running multiple bots:
+
 ```
 python bot.py 1
 python bot.py 2
