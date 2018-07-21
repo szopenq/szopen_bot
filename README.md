@@ -8,8 +8,17 @@ git clone https://github.com/szopenq/szopen_bot.git
 pip install -r requirements.txt
 ```
 
-Running:
+Running single bot:
 
 ```
 python bot.py
+```
+
+Running multiple bots:
+
+```
+python bot.py 1
+python bot.py 2
+python bot.py 3
+...
 ```
