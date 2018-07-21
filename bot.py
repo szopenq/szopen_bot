@@ -122,13 +122,18 @@ class Bot():
 
 
 if __name__ == "__main__":
-    if is_admin():
+    while True:
         try:
-            bot = Bot(sys.argv[1])
-        except IndexError:
-            bot = Bot()
-        bot.run()
-    else:
-        arguments = " ".join(sys.argv[1:])
-        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__ + " " + arguments, None, 1)
-        sys.exit()
+            if is_admin():
+                try:
+                    bot = Bot(sys.argv[1])
+                except IndexError:
+                    bot = Bot()
+                bot.run()
+            else:
+                arguments = " ".join(sys.argv[1:])
+                ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, __file__ + " " + arguments, None, 1)
+                sys.exit()
+        except KeyboardInterrupt:
+            print("[INFO] - Reseting bot")
+            continue
